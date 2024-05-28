@@ -125,6 +125,36 @@ let App = () => {
     };
 
 
+    let getSerch = () => {
+        const userSearchHistory = localStorage.getItem('search_history') ? JSON.parse(localStorage.getItem('search_history')) : []
+
+        function suggestCommonWords(searchHistory) {
+            const wordCountMap = new Map();
+
+            for (let i = 0; i < searchHistory.length; i++) {
+                const words = searchHistory[i].toLowerCase().split(/\s+/);
+
+                words.forEach(word => {
+                    if (wordCountMap.has(word)) {
+                        wordCountMap.set(word, wordCountMap.get(word) + 1);
+                    } else {
+                        wordCountMap.set(word, 1);
+                    }
+                });
+            }
+
+            const sortedWords = [...wordCountMap.entries()]
+                .sort((a, b) => b[1] - a[1])
+                .map(entry => entry[0]);
+
+            return sortedWords;
+        }
+
+        const suggestedWords = suggestCommonWords(userSearchHistory);
+
+        return suggestedWords.length < 1 ? 'Medzy Amara' : suggestedWords.join(' ')
+    };
+
     let ldDt = async (hasid) => {
         try {
             if (queue && queue.length > 0) {
@@ -252,8 +282,9 @@ let App = () => {
                 return fnC(0)
             }
             else {
-                let ax = await axios.get(endpoints.page(`?search=${null}`, Math.random().toString().split('.')[1]));
+                let ax = await axios.get(endpoints.page(`?search=${getSerch()}`, Math.random().toString().split('.')[1]));
                 let rs = ax.data.data.tracks.items
+                setsearch(rs)
                 setqueue(rs)
                 // 
                 let fnC = async (ob) => {
@@ -303,6 +334,11 @@ let App = () => {
         try {
             let ax = await axios.get(endpoints.page(`?search=${val}`, Math.random().toString().split('.')[1]));
             setsearch(ax.data.data.tracks.items)
+            // 
+            let search = localStorage.getItem('search_history') ? JSON.parse(localStorage.getItem('search_history')) : []
+            search.push(val)
+            localStorage.setItem('search_history', JSON.stringify(search))
+            // 
         }
         catch (e) {
             alert(`Unable to find song, albums, or artist.`)
@@ -492,10 +528,11 @@ let App = () => {
                         if (details.seekTimeSeconds != null) {
                             let seekTime = details.seekTimeSeconds;
                             let newPosition = (seekTime / audio.duration) * 100;
+
                             rangeSlider.value = newPosition;
                             audio.currentTime = seekTime;
                             localStorage.setItem('range', seekTime);
-                            setrange(newPosition)
+                            setrange(newPosition);
                         }
                     });
                 }
@@ -543,6 +580,10 @@ let App = () => {
 
 
         audio.addEventListener("play", () => {
+            Mquaries()
+        })
+        
+        audio.addEventListener("pause", () => {
             Mquaries()
         })
 
