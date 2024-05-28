@@ -124,6 +124,16 @@ let App = () => {
         audio.currentTime = localStorage.getItem('current') === current ? current[0].id : '' ? localStorage.getItem('range') ? parseFloat(localStorage.getItem('range')) : 0 : 0
         // 
         audio.play()
+        setisloading(false)
+        setisplaying(true)
+        // 
+        // if (isplaying) {
+        //     audio.play()
+        //     setisplaying(true)
+        // }
+        // else {
+        //     setisplaying(false)
+        // }
     };
 
 
@@ -170,15 +180,6 @@ let App = () => {
                             let fnd = ar.find(v => v.id === dt.id)
                             if (fnd) {
                                 ldAudio(fnd.blob)
-                                // 
-                                setisloading(false)
-                                if (isplaying) {
-                                    audio.play()
-                                    setisplaying(true)
-                                }
-                                else {
-                                    setisplaying(false)
-                                }
 
                             }
                             else {
@@ -196,14 +197,6 @@ let App = () => {
                                     // 
                                     ldAudio(f.blob)
                                     // 
-                                    setisloading(false)
-                                    if (isplaying) {
-                                        audio.play()
-                                        setisplaying(true)
-                                    }
-                                    else {
-                                        setisplaying(false)
-                                    }
                                 }
                                 else {
                                     let o = {
@@ -215,14 +208,6 @@ let App = () => {
                                     // 
                                     ldAudio(o.blob)
                                     // 
-                                    setisloading(false)
-                                    if (isplaying) {
-                                        audio.play()
-                                        setisplaying(true)
-                                    }
-                                    else {
-                                        setisplaying(false)
-                                    }
                                 }
                             }
                             // fnC(ob + 1)
