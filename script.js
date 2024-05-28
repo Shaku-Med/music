@@ -119,9 +119,11 @@ let App = () => {
 
 
     let ldAudio = (src) => {
-            audio.src = src
-            audio.volume = localStorage.getItem('volume') ? parseFloat(localStorage.getItem('volume')) : 0.7
-            audio.currentTime = localStorage.getItem('current') === current ? current[0].id : '' ? localStorage.getItem('range') ? parseFloat(localStorage.getItem('range')) : 0 : 0
+        audio.src = src
+        audio.volume = localStorage.getItem('volume') ? parseFloat(localStorage.getItem('volume')) : 0.7
+        audio.currentTime = localStorage.getItem('current') === current ? current[0].id : '' ? localStorage.getItem('range') ? parseFloat(localStorage.getItem('range')) : 0 : 0
+        // 
+        audio.play()
     };
 
 
