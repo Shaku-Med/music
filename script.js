@@ -582,7 +582,7 @@ let App = () => {
         audio.addEventListener("play", () => {
             Mquaries()
         })
-        
+
         audio.addEventListener("pause", () => {
             Mquaries()
         })
@@ -602,11 +602,12 @@ let App = () => {
         <>
             {
                 current.length > 0 ?
-                    (current || []).map((av, ak) => {
+                (current || []).map((av, ak) => {
+                    document.title = `${av.name} ${av.name ? "|" : ''} MUSIC - Discover, Create, Enjoy`
+                    // 
                         return (
                             <div key={ak} className="contain h-full w-full overflow-hidden">
                                 <div className="main w-full h-full ">
-
                                     <div className="lftPath overflow-hidden  flex items-center justify-center w-full h-full p-2 relative">
                                         <div id="logo" className=" w-full ">
                                             <div className="tog flex items-center justify-start gap-2">
@@ -641,7 +642,11 @@ let App = () => {
                                                             onChange={handleSearchChange}
                                                             placeholder="Search queue..."
                                                             className="search-input p-2 outline-none w-full rounded-lg brd shadow-md"
-                                                        />
+                                                            />
+                                                            
+                                                            <div className="queurSize text-left w-full p-1 opacity-[.6] text-sm">
+                                                                {`${filteredQueue.length} ${filteredQueue.length > 1 ? 'Items in queue' : 'Item in queue'}`}
+                                                            </div>
 
                                                         {
                                                             filteredQueue.length > 0 ?
@@ -661,7 +666,7 @@ let App = () => {
                                                                                 // 
                                                                                 localStorage.setItem(`queue`, JSON.stringify(newQ))
                                                                             }
-                                                                        }} draggable={'true'} htmlFor={`id_${v.id}`} key={k} className="rsults hover:scale-[1.1] transition-all cursor-pointer w-full flex items-center justify-start gap-2 p-1 bg-[var(--darkbg)] mt-1 rounded-xl shadow-lg brd">
+                                                                        }} draggable={'true'} htmlFor={`id_${v.id}`} key={k} className="rsults hover:scale-[.98] transition-all w-full flex items-center justify-start gap-2 p-1 bg-[var(--darkbg)] mt-1 rounded-xl shadow-lg brd">
                                                         
                                                                             <div className="playBtnHere">
                                                                                 <PlayBtn handlePlay={handlePlay} isplaying={isplaying} isloading={isloading} current={current} av={v}/>
@@ -692,6 +697,13 @@ let App = () => {
                                                                                     </div>
                                                                                     <div className="timS min-w-fit text-xs opacity-[.6]">{msToMinutesSeconds(v.duration_ms)} M</div>
                                                                                 </div>
+                                                                            </div>
+                                                                            <div onClick={e => {
+                                                                                if (window.confirm(`Warning! you're about to remove this song from your playlist queue, are you weeling to remove it? OK (Proceed) or CANCEL (Ignore)`)) {
+                                                                                    handleAdd(v)
+                                                                                }
+                                                                            }} title={"remove from queue"} className="removeBtns h-10 w-10 min-w-10 min-h-10 flex items-center justify-center text-[red] brd cursor-pointer">
+                                                                                <i className="bi bi-trash" />
                                                                             </div>
                                                                         </div>
                                                                     )
