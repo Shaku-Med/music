@@ -868,6 +868,7 @@ let App = () => {
                                             <i className={`  ${volume * 100 < 1 ? ` bi bi-volume-mute text-[red]` : volume * 100 >= 70 ? `bi bi-volume-up text-[red]` : 'bi bi-volume-down text-[green]'} rounded-lg shadow-lg h-10 w-10 flex items-center justify-center`} aria-hidden="true" onClick={e => {
                                             localStorage.setItem('volume', 0)
                                                 setvolume(0)
+                                                audio.volume = 0;
                                             }} id="volume_icon"></i>
                                         </div>
 
