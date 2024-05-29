@@ -60,7 +60,7 @@ img {
     /* backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(8px); */
     /* color: #000; */
-    border-radius: 10px;
+/*     border-radius: 10px; */
     transition: .5s ease-in-out;
     overflow: auto;
     height: 100%;
