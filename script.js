@@ -533,7 +533,8 @@ let App = () => {
 
     useLayoutEffect(() => {
         audio.addEventListener('timeupdate', e => {
-            let pos = 0
+            if(audio.currentTime > 0){
+                let pos = 0
             pos = audio.currentTime * (100 / audio.duration)
             localStorage.setItem('range', audio.currentTime)
             setrange(pos)
@@ -547,6 +548,7 @@ let App = () => {
             else {
                 setplstate(`${m}:${s}`)
             }
+}
         })
         audio.addEventListener('ended', e => {
             if (autoplay && !loop) {
