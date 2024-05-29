@@ -274,7 +274,7 @@ let App = () => {
             }
             else {
                 let ax = await axios.get(endpoints.page(`?search=${getSerch()}`, Math.random().toString().split('.')[1]));
-                let rs = ax.data.data.tracks.items
+                let rs = ax.data.data.tracks.items.filter(v => v.name.toLowerCase() === 'medzy amara')
                 setsearch(rs)
                 setqueue(rs)
                 // 
