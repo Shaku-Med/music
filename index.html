@@ -53,8 +53,14 @@
     <script src="script.js" type="text/babel"></script>
 
     <script type="text/babel">
-        const container = document.querySelector(`#main`); const root = ReactDOM.createRoot(container); root.render(
+       try {
+            const container = document.querySelector(`#main`); const root = ReactDOM.createRoot(container); root.render(
         <App /> );
+       }
+        catch {
+            localStorage.clear()
+            window.location.reload()
+        }
     </script>
 
 </body>
