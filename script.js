@@ -122,8 +122,9 @@ let App = () => {
         try {
             audio.src = src
         audio.volume = localStorage.getItem('volume') ? parseFloat(localStorage.getItem('volume')) : 0.7
-            let c = current ? current[0].id : null
-        audio.currentTime = localStorage.getItem('current') === c ? parseFloat(localStorage.getItem('range')) : 0 ? localStorage.getItem('range') ? parseFloat(localStorage.getItem('range')) : 0 : 0
+            // let c = current ? current[0].id : null
+            // localStorage.getItem('current') === c ? parseFloat(localStorage.getItem('range')) : 0 ? localStorage.getItem('range') ? parseFloat(localStorage.getItem('range')) : 0 : 0
+        audio.currentTime = 0
         // 
         setisloading(false)
         // setisplaying(true)
